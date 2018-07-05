@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">World Cup News</string>
-    <string name="no_article">No news found.</string>
-    <string name="no_internet_connection">No internet connection.</string>
-    <string name="near_the">Near the</string>
-    <string name="no_news">No news found.</string>
+    <string name="no_internet_connection">No internet connection. Please try again.</string>
+    <string name="no_news">No search results.\nPlease come back later and try again. </string>
 </resources>

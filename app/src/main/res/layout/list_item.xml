@@ -9,6 +9,7 @@
     android:paddingRight="16dp"
     android:paddingStart="16dp">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="36dp"
@@ -19,33 +20,45 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/type"
+            android:id="@+id/section_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginRight="16dp"
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
             android:textAllCaps="true"
             android:textColor="@color/colorDefault"
-            android:textSize="@dimen/type_date_text_size"
+            android:textSize="@dimen/type_text_size"
             tools:text="NEWS" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/author_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textColor="@color/colorDefault"
+            android:textSize="@dimen/type_text_size"
+            tools:text="Author name" />
+
+        <TextView
+            android:id="@+id/date_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end"
+            android:gravity="center"
             android:maxLines="1"
-            android:paddingEnd="8dp"
             android:textColor="@color/colorDefault"
-            android:textSize="@dimen/type_date_text_size"
+            android:textSize="@dimen/type_text_size"
             tools:text="date" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/title_text_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

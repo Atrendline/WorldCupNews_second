@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity
      */
     private static final String GUARDIAN_REQUEST_URL =
 
-            "https://content.guardianapis.com/search?q=fifa%20world%20cup&api-key=9306b177-3884-4146-8724-9e84db49c350";
+            "https://content.guardianapis.com/search?section=football&show-tags=contributor&api-key=9306b177-3884-4146-8724-9e84db49c350";
 
     private static final int GUARDIAN_LOADER_ID = 1;
 
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
+
         ListView worldCupListView = (ListView) findViewById( R.id.list );
         mEmptyStateTextView = (TextView) findViewById( R.id.empty_view );
         worldCupListView.setEmptyView( mEmptyStateTextView );
@@ -56,9 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         mAdapter = new WorldCupAdapter( this, new ArrayList<WorldCup>() );
 
-
         worldCupListView.setAdapter( mAdapter );
-
 
         worldCupListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
@@ -66,12 +65,9 @@ public class MainActivity extends AppCompatActivity
 
                 WorldCup currentWorldCup = mAdapter.getItem( position );
 
-
                 Uri worldCupUri = Uri.parse( currentWorldCup.getUrl() );
 
-
                 Intent websiteIntent = new Intent( Intent.ACTION_VIEW, worldCupUri );
-
 
                 startActivity( websiteIntent );
             }
@@ -80,21 +76,18 @@ public class MainActivity extends AppCompatActivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService( Context.CONNECTIVITY_SERVICE );
 
-
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
 
         if (networkInfo != null && networkInfo.isConnected()) {
 
             LoaderManager loaderManager = getLoaderManager();
 
-
             loaderManager.initLoader( GUARDIAN_LOADER_ID, null, this );
+
         } else {
 
             View loadingIndicator = findViewById( R.id.loading_indicator );
             loadingIndicator.setVisibility( View.GONE );
-
 
             mEmptyStateTextView.setText( R.string.no_internet_connection );
         }
@@ -112,9 +105,7 @@ public class MainActivity extends AppCompatActivity
         View loadingIndicator = findViewById( R.id.loading_indicator );
         loadingIndicator.setVisibility( View.GONE );
 
-
         mEmptyStateTextView.setText( R.string.no_news );
-
 
         if (worldCup != null && !worldCup.isEmpty()) {
             mAdapter.addAll( worldCup );

@@ -140,28 +140,36 @@ public final class QueryUtils {
 
                 JSONObject currentWorldCup = worldCupArray.getJSONObject( i );
 
-
-                String type = currentWorldCup.getString( "type" );
-
+                String section = currentWorldCup.getString( "sectionName" );
 
                 String title = currentWorldCup.getString( "webTitle" );
 
+                JSONArray tagsArray = currentWorldCup.getJSONArray( "tags" );
+                String author = null;
+                if (tagsArray.length() > 0) {
+                    for (int o = 0; o < tagsArray.length(); o++) {
+
+                        JSONObject currentTag = tagsArray.getJSONObject( o );
+                        try {
+                            author = currentTag.getString( "webTitle" );
+                        } catch (JSONException e) {
+                            Log.e( LOG_TAG, "Missing one or more author's name JSONObject" );
+                        }
+                    }
+                }
 
                 String date = currentWorldCup.getString( "webPublicationDate" );
 
-
                 String url = currentWorldCup.getString( "webUrl" );
 
-
-                WorldCup worldCupNews = new WorldCup( type, title, date, url );
-
+                WorldCup worldCupNews = new WorldCup( section, title, author, date, url );
 
                 worldCup.add( worldCupNews );
             }
 
         } catch (JSONException e) {
 
-            Log.e( "QueryUtils", "Problem parsing the earthquake JSON results", e );
+            Log.e( "QueryUtils", "Problem parsing the news JSON results", e );
         }
 
         return worldCup;

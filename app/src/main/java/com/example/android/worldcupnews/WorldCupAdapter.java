@@ -1,5 +1,6 @@
 package com.example.android.worldcupnews;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class WorldCupAdapter extends ArrayAdapter<WorldCup> {
 
+
+    private int author;
+    private int section;
 
     public WorldCupAdapter(Context context, List<WorldCup> worldCup) {
         super( context, 0, worldCup );
@@ -18,8 +24,7 @@ public class WorldCupAdapter extends ArrayAdapter<WorldCup> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Check if there is an existing list item view (called convertView) that we can reuse,
-        // otherwise, if convertView is null, then inflate a new list item layout.
+
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from( getContext() ).inflate(
@@ -29,35 +34,31 @@ public class WorldCupAdapter extends ArrayAdapter<WorldCup> {
 
         WorldCup currentWorldCup = getItem( position );
 
-
-        String type = currentWorldCup.getType();
-
-
+        TextView titleTextView = (TextView) listItemView.findViewById( R.id.title_text_view );
         String title = currentWorldCup.getWebTitle();
+        titleTextView.setText( title );
 
+        TextView sectionTextView = (TextView) listItemView.findViewById( R.id.section_text_view );
+        String section = currentWorldCup.getSection();
+        sectionTextView.setText( section );
 
-        //Find the TextView with view ID location
-        TextView titleView = (TextView) listItemView.findViewById( R.id.title );
+        TextView authorTextView = (TextView) listItemView.findViewById( R.id.author_text_view );
+        String author = currentWorldCup.getAuthor();
+        authorTextView.setText( author );
 
-        titleView.setText( title );
-
-        // Find the TextView with view ID location offset
-        TextView typeView = (TextView) listItemView.findViewById( R.id.type );
-
-        typeView.setText( type );
-
-        // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemView.findViewById( R.id.date );
+        TextView dateTextView = (TextView) listItemView.findViewById( R.id.date_text_view );
 
         String formattedDate = currentWorldCup.getWebPublicationDate();
 
+        dateTextView.setText( formattedDate );
 
-        dateView.setText( formattedDate );
-
-        // Return the list item view
         return listItemView;
     }
 
+    private String formatDate(Date dateObject) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSSZ" );
+        return dateFormat.format( dateObject );
+    }
 }
 
 
