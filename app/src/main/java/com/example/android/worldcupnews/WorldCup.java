@@ -39,4 +39,5 @@ public class WorldCup {
     public String getUrl() {
         return mUrl;
     }
+
 }

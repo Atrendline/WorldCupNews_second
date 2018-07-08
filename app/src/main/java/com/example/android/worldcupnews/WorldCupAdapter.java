@@ -1,6 +1,5 @@
 package com.example.android.worldcupnews;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class WorldCupAdapter extends ArrayAdapter<WorldCup> {
 
+    private static final String LOCATION_SEPARATOR = "T";
 
     private int author;
     private int section;
+
 
     public WorldCupAdapter(Context context, List<WorldCup> worldCup) {
         super( context, 0, worldCup );
@@ -47,18 +46,18 @@ public class WorldCupAdapter extends ArrayAdapter<WorldCup> {
         authorTextView.setText( author );
 
         TextView dateTextView = (TextView) listItemView.findViewById( R.id.date_text_view );
-
         String formattedDate = currentWorldCup.getWebPublicationDate();
-
         dateTextView.setText( formattedDate );
+
+        String[] parts = formattedDate.split( LOCATION_SEPARATOR );
+        String date = parts[0];
+
+        dateTextView.setText( date );
 
         return listItemView;
     }
 
-    private String formatDate(Date dateObject) {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSSZ" );
-        return dateFormat.format( dateObject );
-    }
+
 }
 
 
