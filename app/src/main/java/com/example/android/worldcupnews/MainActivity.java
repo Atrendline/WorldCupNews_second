@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        uriBuilder.appendQueryParameter( "api-key", "9306b177-3884-4146-8724-9e84db49c350");
+        uriBuilder.appendQueryParameter( "api-key", "test");
         uriBuilder.appendQueryParameter( "show-tags", "contributor" );
         uriBuilder.appendQueryParameter("q", topic);
         uriBuilder.appendQueryParameter( "orderby", orderBy);
