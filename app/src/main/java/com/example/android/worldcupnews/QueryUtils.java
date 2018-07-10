@@ -21,6 +21,9 @@ import java.util.List;
 
 public final class QueryUtils {
 
+    private static final int READ_TIMEOUT = 10000;
+    private static final int CONNECT_TIMEOUT = 15000;
+
     /**
      * Tag for the log messages
      */
@@ -76,8 +79,8 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout( 10000 /* milliseconds */ );
-            urlConnection.setConnectTimeout( 15000 /* milliseconds */ );
+            urlConnection.setReadTimeout( READ_TIMEOUT /* milliseconds */ );
+            urlConnection.setConnectTimeout( CONNECT_TIMEOUT /* milliseconds */ );
             urlConnection.setRequestMethod( "GET" );
             urlConnection.connect();
 
@@ -140,29 +143,29 @@ public final class QueryUtils {
 
                 JSONObject currentWorldCup = worldCupArray.getJSONObject( i );
 
-                String section = currentWorldCup.getString( "sectionName" );
+                String key_section = currentWorldCup.getString( "sectionName" );
 
-                String title = currentWorldCup.getString( "webTitle" );
+                String key_title = currentWorldCup.getString( "webTitle" );
 
                 JSONArray tagsArray = currentWorldCup.getJSONArray( "tags" );
-                String author = null;
+                String key_author = null;
                 if (tagsArray.length() > 0) {
                     for (int o = 0; o < tagsArray.length(); o++) {
 
                         JSONObject currentTag = tagsArray.getJSONObject( o );
                         try {
-                            author = currentTag.getString( "webTitle" );
+                            key_author = currentTag.getString( "webTitle" );
                         } catch (JSONException e) {
                             Log.e( LOG_TAG, "Missing one or more author's name JSONObject" );
                         }
                     }
                 }
 
-                String date = currentWorldCup.getString( "webPublicationDate" );
+                String key_date = currentWorldCup.getString( "webPublicationDate" );
 
                 String url = currentWorldCup.getString( "webUrl" );
 
-                WorldCup worldCupNews = new WorldCup( section, title, author, date, url );
+                WorldCup worldCupNews = new WorldCup( key_section, key_title, key_author, key_date, url );
 
                 worldCup.add( worldCupNews );
             }
